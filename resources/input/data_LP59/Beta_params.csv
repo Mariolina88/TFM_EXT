@@ -1,0 +1,5 @@
+Profile_code,Depth,Beta_exponentialModel,Saturated_conductivity_exponentialModel,Saturated_waterContent_exponentialModel
+aLayer_28_LP59_Ap2,10-23,56.82,0.508,0.3497
+bLayer_28_LP59_Bt1,40-60,153.77,0.632,0.3292
+cLayer_28_LP59_Bt2,60-90,71.12,0.361,0.4726
+dLayer_28_LP59_Bt3,90-120,70.59,0.259,0.4611

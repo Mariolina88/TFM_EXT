@@ -1,1 +1,0 @@
-Path to folder to hydraulic data:	resources/input/dataCode of the soil profile: 	LP7Path to optimized curve params:	resources/input/data/Beta_params.csvPath to precipitation:	resources/input/data/precipitation.csvWater table depth:	200Lambda 1:	1Lambda 2:	1Path to output:	resources/output/output.csv
