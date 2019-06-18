@@ -29,7 +29,7 @@ public class MainSimulation {
 		
 		
 		ReaderConfiguration config =new ReaderConfiguration();
-		config.setConfiguration("resources/Input/Configurazione.txt");
+		config.setConfiguration("resources/Input/Configurazione_LP59.txt");
 		
 		// if the file with the params is not present in the specified folder
 		// the SimulationCurve produces it in the case of the Beta_exponential curve model

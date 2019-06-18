@@ -68,16 +68,18 @@ public class ReaderInputHydraulicData {
 
 		br = new BufferedReader(new FileReader(pathToData));
 		int i=0;
+
 		
-		profile_code=pathToData.split("_")[2]+"_"+pathToData.split("_")[1];
+		profile_code=pathToData.split("/")[pathToData.split("/").length-1];
 		
+		profile_code=profile_code.split("\\.")[0];
 		
 		while ((line = br.readLine()) != null) {
 			
 			// first line is the depth of the layer
 			if(line.contains("depth")){
 				
-				depth=line.split(":")[1];
+				depth=line.split(",")[1];
 			}
 
 			// second line is the header
