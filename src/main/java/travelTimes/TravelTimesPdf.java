@@ -63,6 +63,7 @@ public class TravelTimesPdf {
 		int lengthSeries=waterContent.size();
 		
 
+		
 		for(int i=0;i<lengthSeries;i++){
 
 			double teta=waterContent.get(i);
