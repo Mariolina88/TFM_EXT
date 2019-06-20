@@ -63,7 +63,7 @@ public class GTFmodel {
 		double mu_z=Math.log(mean_z)-0.5*Math.pow(sigma_z, 2);
 
 
-		for(int i=0;i<100;i++){
+		for(int i=0;i<50;i++){
 
 			//GTF model 
 			double f_tz=1/(sigma_z*(i+0.25)*Math.pow(2*Math.PI, 0.5))*Math.exp(-Math.pow((Math.log(i+0.25)-mu_z),2)/(2*Math.pow(sigma_z, 2)));
@@ -75,7 +75,7 @@ public class GTFmodel {
 
 		}
 
-		for(int i=0;i<100;i++){
+		for(int i=0;i<50;i++){
 
 			variance_t=variance_t+Math.pow(((i+0.25)-mean_t),2)*pdfArray.get(i);
 		}
