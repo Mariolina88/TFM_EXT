@@ -72,11 +72,11 @@ public class WriterParamsCurve {
 			csvWriter.append(beta.toString());
 			csvWriter.append(",");
 			
-			Double k0=Math.round(saturated_conductivity_exponentialModel.get(i)*1000.0)/1000.0;
+			Double k0=Math.round(saturated_conductivity_exponentialModel.get(i)*100.0)/100.0;
 			csvWriter.append(k0.toString());
 			csvWriter.append(",");
 			
-			Double theta0=Math.round(saturated_waterContent_exponentialModel.get(i)*10000.0)/10000.0;
+			Double theta0=Math.round(saturated_waterContent_exponentialModel.get(i)*1000.0)/1000.0;
 			csvWriter.append(theta0.toString());
 			csvWriter.append('\n');
 
