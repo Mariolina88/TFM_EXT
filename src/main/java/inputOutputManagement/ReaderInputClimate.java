@@ -25,7 +25,7 @@ import java.io.*;
  * 
  * OUTPUTS:
  * Arraylist with:
- * - precipitation
+ * - net precipitation
  * - date 
  */
 public class ReaderInputClimate {
@@ -62,7 +62,20 @@ public class ReaderInputClimate {
 			if(i>0){
 
 			date.add(line.split(csvSplitBy)[0]);
-			precipitation.add(Double.parseDouble(line.split(csvSplitBy)[1]));
+			
+			double precip=Double.parseDouble(line.split(csvSplitBy)[1]);
+			double ET=0;
+			
+			if(!(line.split(csvSplitBy)[2]==null))	{		
+			
+			ET=Double.parseDouble(line.split(csvSplitBy)[2]);
+			
+			}else{
+				ET=0;
+			}
+			
+		
+			precipitation.add(precip-ET);
 				
 			}
 		

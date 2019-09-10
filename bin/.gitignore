@@ -1,7 +1,6 @@
-/convolution/
-/curveFitting/
-/curveGenerator/
-/generalizedTransferFunctionModel/
-/inputOutputManagement/
 /mainCore/
 /travelTimes/
+/generalizedTransferFunctionModel/
+/curveGenerator/
+/convolution/
+/inputOutputManagement/

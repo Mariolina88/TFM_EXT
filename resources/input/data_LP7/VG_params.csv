@@ -1,4 +1,4 @@
-Profile_code,Depth,n_VG,tau_VG,saturated_conductivity_VG,saturated_waterContent_VG,residual_waterContent_VG
-LP7_29,10-28,1.126,1.051,24.847,0.440,0.023
-LP7_58,50-62,1.3,41.880,4.518,0.408,0.100
-LP7_A13,105-135,1.550,1.942,5.129,0.390,0
+Profile_code,Depth,n_VG,tau_VG,saturated_conductivity_VG,saturated_waterContent_VG,residual_waterContent_VG,alpha_VG
+aLayer_29_LP7_ap2,0-28,1.126,1.051,24.847,0.440,0.023,0.035
+bLayer_58_LP7_Bw1Bw2,28-105,1.3,41.880,4.518,0.408,0.100,0.005
+cLayer_A13_LP7_BC,105-135,1.550,1.942,5.129,0.390,0,0.016

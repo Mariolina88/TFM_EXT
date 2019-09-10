@@ -38,10 +38,12 @@ public class ReaderConfiguration {
 	String pathToPrecipitation;
 	String profile_code;
 	String pathToOutput;
+	String pathToConcetration;
 	double waterTableDepth;
 	double lambda_1;
 	double lambda_2;
 	boolean doOptimization=false;
+	boolean independence;
 
 
 	public void setConfiguration (String pathToConfig) throws IOException{
@@ -87,13 +89,21 @@ public class ReaderConfiguration {
 				
 			}else if(i==5){
 				
-				lambda_1=Double.parseDouble(line.split("\t")[1]);
+				pathToConcetration=line.split("\t")[1];
 				
 			}else if(i==6){
 				
-				lambda_2=Double.parseDouble(line.split("\t")[1]);
+				lambda_1=Double.parseDouble(line.split("\t")[1]);
+				
 			}else if(i==7){
 				
+				lambda_2=Double.parseDouble(line.split("\t")[1]);
+			}else if(i==8){
+				
+				if(line.contains("true")){
+				independence=true;}
+				
+			}else if(i==9){
 				pathToOutput=line.split("\t")[1];
 			}
 			
@@ -134,6 +144,12 @@ public class ReaderConfiguration {
 		
 	}
 	
+	
+	public String getPathToConcentration(){
+		return pathToConcetration;
+		
+	}
+	
 	public double getWaterTableDepth(){
 		return waterTableDepth;
 		
@@ -146,6 +162,11 @@ public class ReaderConfiguration {
 	
 	public double getLambda_2(){
 		return lambda_2;		
+	}
+	
+	public boolean isIndependent(){
+		return independence;
+	
 	}
 	
 	public String getPathToOuput(){

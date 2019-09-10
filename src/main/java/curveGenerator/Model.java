@@ -20,5 +20,7 @@ public interface Model {
 	 * @return the double value of the clear sky emissivity
 	 */
 	abstract public double conductivity ();
+	
+	abstract public double theta_i ();
 
 }

@@ -17,17 +17,17 @@ public class SimpleModelFactory {
 
 	public static Model createModel(String type,double waterContent,double beta_linearModel, 
 			double saturated_waterContent,double residual_waterContent, double saturated_conductivity, double n_paramVanGenuchten, 
-			double tau_paramVanGenuchten){
+			double tau_paramVanGenuchten, double inputFlux){
 		Model model=null;
 
 
 		if (type.equals("Beta")){
-			model=new ExponentialModel(waterContent, saturated_waterContent,saturated_conductivity,beta_linearModel);
+			model=new ExponentialModel(waterContent, saturated_waterContent,saturated_conductivity,beta_linearModel, inputFlux);
 
 
 		}else if (type.equals("VG")){
 			model=new VGmodel( waterContent, residual_waterContent,saturated_waterContent,saturated_conductivity,
-					  n_paramVanGenuchten, tau_paramVanGenuchten);
+					  n_paramVanGenuchten, tau_paramVanGenuchten, inputFlux);
 
 
 		}

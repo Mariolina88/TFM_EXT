@@ -50,15 +50,16 @@ public class ReaderInputHydraulicParams {
 	//OUTPUT
 	public ArrayList <Double> thickness= new ArrayList <Double>();
 
-	public ArrayList <Double> beta_exponentialModel= new ArrayList <Double>();;
-	public ArrayList <Double> saturated_conductivity_exponentialModel= new ArrayList <Double>();;
-	public ArrayList <Double> saturated_waterContent_exponentialModel= new ArrayList <Double>();;
+	public ArrayList <Double> beta_exponentialModel= new ArrayList <Double>();
+	public ArrayList <Double> saturated_conductivity_exponentialModel= new ArrayList <Double>();
+	public ArrayList <Double> saturated_waterContent_exponentialModel= new ArrayList <Double>();
 
-	public ArrayList <Double> saturated_waterContent_VG= new ArrayList <Double>();;
-	public ArrayList <Double> residual_waterContent_VG= new ArrayList <Double>();;
-	public ArrayList <Double> saturated_conductivity_VG= new ArrayList <Double>();;
-	public ArrayList <Double> n_VG= new ArrayList <Double>();;
-	public ArrayList <Double> tau_VG= new ArrayList <Double>();;
+	public ArrayList <Double> saturated_waterContent_VG= new ArrayList <Double>();
+	public ArrayList <Double> residual_waterContent_VG= new ArrayList <Double>();
+	public ArrayList <Double> saturated_conductivity_VG= new ArrayList <Double>();
+	public ArrayList <Double> n_VG= new ArrayList <Double>();
+	public ArrayList <Double> tau_VG= new ArrayList <Double>();
+	public ArrayList <Double> alpha_VG= new ArrayList <Double>();
 
 
 	private String line = "";
@@ -80,7 +81,7 @@ public class ReaderInputHydraulicParams {
 		while ((line = br.readLine()) != null) {
 
 			// first line is the header
-			if(i>0){
+			if(i>0&line != ""){
 
 				thickness.add(Double.parseDouble(line.split(csvSplitBy)[1].split("-")[1])-
 						Double.parseDouble(line.split(csvSplitBy)[1].split("-")[0]));
@@ -88,9 +89,7 @@ public class ReaderInputHydraulicParams {
 				if(pathToData.contains("Beta")){
 
 					beta_exponentialModel.add(Double.parseDouble(line.split(csvSplitBy)[2]));
-
 					saturated_conductivity_exponentialModel.add(Double.parseDouble(line.split(csvSplitBy)[3]));
-
 					saturated_waterContent_exponentialModel.add(Double.parseDouble(line.split(csvSplitBy)[4]));
 
 
@@ -103,6 +102,7 @@ public class ReaderInputHydraulicParams {
 					saturated_conductivity_VG.add(Double.parseDouble(line.split(csvSplitBy)[4]));
 					saturated_waterContent_VG.add(Double.parseDouble(line.split(csvSplitBy)[5]));
 					residual_waterContent_VG.add(Double.parseDouble(line.split(csvSplitBy)[6]));
+					alpha_VG.add(Double.parseDouble(line.split(csvSplitBy)[7]));
 
 					Beta=false;
 				}

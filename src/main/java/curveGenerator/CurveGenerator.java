@@ -14,6 +14,7 @@ package curveGenerator;
 import java.util.ArrayList;
 
 
+
 /**
  * 
  * The class CurveGenerator generates the series of the unsaturated hydraulic conductivity
@@ -42,9 +43,11 @@ public class CurveGenerator {
 	public double saturated_conductivity;
 	public double n_paramVanGenuchten;
 	public double tau_paramVanGenuchten;
+	public double inputFlux;
 	
 	//OUTPUT
 	public ArrayList <Double> simualtedConductivity= new ArrayList <Double>();
+	public double mean_velocity;
 	
 	Model curveModel;
 	
@@ -61,16 +64,24 @@ public class CurveGenerator {
 		
 		//calculate the simualted conductivity according to the user defined model, more models coul be implemented
 		curveModel=SimpleModelFactory.createModel(model,teta,beta_linearModel, saturated_waterContent,residual_waterContent, 
-				saturated_conductivity,  n_paramVanGenuchten, tau_paramVanGenuchten);
+				saturated_conductivity,  n_paramVanGenuchten, tau_paramVanGenuchten,inputFlux);
 		
 		double conductivity=curveModel.conductivity();
-			
 		
+		
+		
+		
+
 		simualtedConductivity.add(conductivity);
 		
 		}
+		
 
+		//mean_velocity=inputFlux/curveModel.theta_i();
+		
 		
 	}
+	
+
 
 }

@@ -33,6 +33,7 @@ public class GeneralMoments {
 	//OUTPUT
 	public double totalMean;
 	public double totalVar;
+	public boolean independence;
 
 	public void process() throws Exception { 
 
@@ -45,8 +46,11 @@ public class GeneralMoments {
 			totalMean=totalMean+mean.get(i);
 			double R=mean.get(i)/mean.get(i-1);
 
-			totalVar=Math.pow((1+R),2)*totalVar;
-
+			if(independence==false){
+				totalVar=Math.pow((1+R),2)*totalVar;
+			}else{
+				totalVar=totalVar+variance.get(i);
+			}
 
 
 		}
