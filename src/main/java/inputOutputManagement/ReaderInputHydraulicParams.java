@@ -14,14 +14,19 @@
 package inputOutputManagement;
 
 import java.util.ArrayList;
+
+import org.geotools.data.shapefile.ShapefileDataStore;
+import org.geotools.data.simple.SimpleFeatureIterator;
+import org.opengis.feature.simple.SimpleFeature;
+
 import java.io.*;
 
 
 /**
  * The Class ReaderInputData reads the input files extracting the data of interests.
  * INPUTS:
- * pathToData: Path to the file with the params
- * csvSplitBy: defines the separator in the  csv file. Comma is set as default
+ * pathToShape: Path to the file with the params
+ * code profile
  * 
  * OUTPUTS:
  * Arraylist with:
@@ -43,9 +48,8 @@ import java.io.*;
 public class ReaderInputHydraulicParams {
 
 	//INPUT
-	public String pathToData;
-	public String csvSplitBy=",";
-	public boolean Beta=true;
+	public String pathToShape;	
+	public String codeProfile;
 	
 	//OUTPUT
 	public ArrayList <Double> thickness= new ArrayList <Double>();
@@ -60,64 +64,63 @@ public class ReaderInputHydraulicParams {
 	public ArrayList <Double> n_VG= new ArrayList <Double>();
 	public ArrayList <Double> tau_VG= new ArrayList <Double>();
 	public ArrayList <Double> alpha_VG= new ArrayList <Double>();
+	
+	public ArrayList <String> pathToHydraData= new ArrayList <String>();
 
-
-	private String line = "";
 
 
 
 	public void process() throws Exception { 
 
+		File f = new File(pathToShape);
+        ShapefileDataStore shapefile = new ShapefileDataStore(f.toURI().toURL());
 
+        SimpleFeatureIterator features = shapefile.getFeatureSource().getFeatures().features();
+        SimpleFeature shp;
+        
 
-		// reads the data and extracts the values of the 
-		// variables of interest (i.e. water content, potential and hydraulic conductivity)
+        
+        while (features.hasNext()) {
+        	shp = features.next();
+        	String code=(String) shp.getAttribute("P_code");
+        	
+        	if(code.equals(codeProfile)){
+        		
+        										
+        		
+        		String depth=(String)shp.getAttribute("Depth");    		
+        		thickness.add(Double.parseDouble(depth.split("-")[1])-Double.parseDouble(depth.split("-")[0]));
+        		
 
-		BufferedReader br = null;
+				beta_exponentialModel.add((double) shp.getAttribute("beta_exp"));
+				
+				saturated_conductivity_exponentialModel.add((double)shp.getAttribute("Ks_exp"));
+				
+				saturated_waterContent_exponentialModel.add((double)shp.getAttribute("theta_exp"));
+        		
+				n_VG.add((double)shp.getAttribute("n_VG"));
+				
+				tau_VG.add((double)shp.getAttribute("tau_VG"));
+				
+				saturated_conductivity_VG.add((double)shp.getAttribute("Ks_VG"));
+				
+				saturated_waterContent_VG.add((double)shp.getAttribute("theta_s_VG"));
+				
+				residual_waterContent_VG.add((double)shp.getAttribute("theta_r_VG"));
 
-		br = new BufferedReader(new FileReader(pathToData));
-		int i=0;
+				alpha_VG.add((double)shp.getAttribute("alpha_VG"));
+				
+				pathToHydraData.add((String)shp.getAttribute("hydra_data"));
 
-		while ((line = br.readLine()) != null) {
+        	}
+        	
+        }
+        
+        
+        
 
-			// first line is the header
-			if(i>0&line != ""){
-
-				thickness.add(Double.parseDouble(line.split(csvSplitBy)[1].split("-")[1])-
-						Double.parseDouble(line.split(csvSplitBy)[1].split("-")[0]));
-
-				if(pathToData.contains("Beta")){
-
-					beta_exponentialModel.add(Double.parseDouble(line.split(csvSplitBy)[2]));
-					saturated_conductivity_exponentialModel.add(Double.parseDouble(line.split(csvSplitBy)[3]));
-					saturated_waterContent_exponentialModel.add(Double.parseDouble(line.split(csvSplitBy)[4]));
-
-
-
-				} else if (pathToData.contains("VG")){
-
-
-					n_VG.add(Double.parseDouble(line.split(csvSplitBy)[2]));
-					tau_VG.add(Double.parseDouble(line.split(csvSplitBy)[3]));
-					saturated_conductivity_VG.add(Double.parseDouble(line.split(csvSplitBy)[4]));
-					saturated_waterContent_VG.add(Double.parseDouble(line.split(csvSplitBy)[5]));
-					residual_waterContent_VG.add(Double.parseDouble(line.split(csvSplitBy)[6]));
-					alpha_VG.add(Double.parseDouble(line.split(csvSplitBy)[7]));
-
-					Beta=false;
-				}
-
-
-
-
-			}
-
-
-			i++;		
-
-		}
-
-		br.close();
+        features.close();
+        shapefile.dispose();
 
 
 
