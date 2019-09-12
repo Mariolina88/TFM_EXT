@@ -47,7 +47,7 @@ public class GeneralMoments {
 			double R=mean.get(i)/mean.get(i-1);
 
 			if(independence==false){
-				totalVar=Math.pow(R,2)*totalVar;
+				totalVar=Math.pow((1+R),2)*totalVar;
 			}else{
 				totalVar=totalVar+variance.get(i);
 			}
