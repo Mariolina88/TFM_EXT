@@ -40,9 +40,11 @@ public class MainSimulation {
 		SimulationTFM simulationTFM = new 	SimulationTFM();	
 		simulationTFM.trasferModel(
 				config.getPathToOptimizedCurveParams(),
-				config.getPathToPrecipitation(), 
+				config.getPathToPrecipitation(),
+				config.pathToConcentration,
 				config.getPathToOuput(),
-				config.run);
+				config.run,
+				config.doConvol);
 						
 
 	}

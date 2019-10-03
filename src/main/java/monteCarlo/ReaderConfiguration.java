@@ -34,8 +34,10 @@ public class ReaderConfiguration {
 
 	String pathToOptimizedCurveParams;
 	String pathToPrecipitation;
+	String pathToConcentration;
 	String pathToOutput;
 	double run;
+	boolean doConvol;
 
 	public void setConfiguration(String pathToConfig) throws IOException {
 
@@ -55,11 +57,19 @@ public class ReaderConfiguration {
 
 			} else if (i == 2) {
 				
+				pathToConcentration = line.split("\t")[1];
+				
+			}	else if (i == 3) {
+				
 				pathToOutput = line.split("\t")[1];
 				
-			}else if (i == 3) {
+			}else if (i == 4) {
 				
 				run = Double.parseDouble(line.split("\t")[1]);
+				
+			}else if (i == 5) {
+				
+				doConvol=Boolean.parseBoolean(line);
 			}
 
 			i++;

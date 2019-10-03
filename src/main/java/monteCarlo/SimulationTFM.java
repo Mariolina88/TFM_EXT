@@ -15,10 +15,12 @@ package monteCarlo;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import convolution.Convolution;
 import curveGenerator.CurveGenerator;
 import curveGenerator.WaterContentGenerator;
 import inputOutputManagement.ReaderInputClimate;
-import travelTimes.TravelTimesPdfBeta;
+import inputOutputManagement.ReaderInputConcentration;
 import travelTimes.TravelTimesPdfVG;
 
 
@@ -27,8 +29,8 @@ import monteCarlo.WriterOUTttpdf;
 
 public class SimulationTFM {
 
-	public void trasferModel (String pathToParams, String pathToClimate,
-			String pathToOutput, double run) throws Exception {
+	public void trasferModel (String pathToParams, String pathToClimate, String pathToConcentration,
+			String pathToOutput, double run, boolean doConvol) throws Exception {
 
 
 		// if the file already exists, it is delated
@@ -110,9 +112,28 @@ public class SimulationTFM {
 			tf_VG.process();
 
 
+			
+			if(doConvol==false){
 			// compute the mean and variance 
 			mean.add(tf_VG.mean);
 			variance.add(tf_VG.variance);
+			
+			}else{
+					
+			ReaderInputConcentration readerC=new ReaderInputConcentration();
+			readerC.pathToData=pathToConcentration;	
+			readerC.process();
+			
+	
+			Convolution convolve=new Convolution();
+			convolve.inputConcentration=readerC.concentration;
+			convolve.TTpdf=tf_VG.pdfArray;
+			convolve.convolution();
+			
+			mean.add(convolve.mean);
+			variance.add(convolve.variance);
+			
+			}
 
 		}
 
