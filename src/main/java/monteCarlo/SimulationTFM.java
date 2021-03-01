@@ -39,9 +39,9 @@ public class SimulationTFM {
 		File file = new File(pathToOutput); 		
 		if(file.exists()) file.delete();
 
-		ReaderInputClimate readerPrecip =new ReaderInputClimate();
-		readerPrecip.pathToData=pathToClimate;	
-		readerPrecip.process();
+		//ReaderInputClimate readerPrecip =new ReaderInputClimate();
+		//readerPrecip.pathToData=pathToClimate;	
+		//readerPrecip.process();
 
 		
 		ArrayList <Double> mean=new ArrayList <Double>();
@@ -61,12 +61,9 @@ public class SimulationTFM {
 
 
 
+			//double precipitation=readerPrecip.precipitation.get(1);
 
-
-
-			double precipitation=readerPrecip.precipitation.get(1);
-
-
+			double precipitation=readerInputsParams.q;
 
 			CurveGenerator curve=new CurveGenerator();
 			TravelTimesPdfVG tf_VG=new TravelTimesPdfVG ();

@@ -29,7 +29,7 @@ public class MainSimulation {
 		
 		
 		ReaderConfiguration config =new ReaderConfiguration();
-		config.setConfiguration("/Users/marialaura/Dropbox/Valle_telesina_LANDSUPPORT/MC_VT/Configurazione.txt");
+		config.setConfiguration("/Users/marialaura/Dropbox/Valle_telesina_LANDSUPPORT/TFM_test/MonteCarlo_VT/Configurazione.txt");
 		
 		// if the file with the params is not present in the specified folder
 		// the SimulationCurve produces it in the case of the Beta_exponential curve model

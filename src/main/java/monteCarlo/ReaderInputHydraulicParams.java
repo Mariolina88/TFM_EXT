@@ -31,6 +31,7 @@ public class ReaderInputHydraulicParams {
 	public double n_VG=0;
 	public double tau_VG=0;
 	public double alpha_VG=0;
+	public double q=0;
 
 
 	private String line = "";
@@ -83,6 +84,8 @@ public class ReaderInputHydraulicParams {
 				tau_VG=Double.parseDouble(line.split(csvSplitBy)[5]);
 				tau_VG=tau_VG<-20?-0.106:tau_VG;
 				tau_VG=tau_VG>30?-0.106:tau_VG;
+				
+				q=Double.parseDouble(line.split(csvSplitBy)[6]);
 			}
 
 

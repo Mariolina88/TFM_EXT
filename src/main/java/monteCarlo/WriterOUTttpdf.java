@@ -51,20 +51,20 @@ public class WriterOUTttpdf {
 
 			csvWriter.append(outputMeanTT.get(i).toString());
 			if(i<dim-1)csvWriter.append(",");
-
+			csvWriter.append('\n');
 		}
 
-		csvWriter.append('\n');
+		/**csvWriter.append('\n');
 		
 		for(int i=0;i<dim;i++){
 
 			csvWriter.append(outputVarTT.get(i).toString());
 			if(i<dim-1)csvWriter.append(",");
 
-		}
+		} */
 
 		csvWriter.flush();  
-		csvWriter.close(); 
+		csvWriter.close();
 
 
 
