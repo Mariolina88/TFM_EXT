@@ -38,6 +38,8 @@ public class ReaderConfiguration {
 	String pathToOutput;
 	double run;
 	boolean doConvol;
+	double distribution_coeff;
+	double decayFactor;
 
 	public void setConfiguration(String pathToConfig) throws IOException {
 
@@ -70,6 +72,14 @@ public class ReaderConfiguration {
 			}else if (i == 5) {
 				
 				doConvol=Boolean.parseBoolean(line);
+			}else if (i == 6) {
+				
+				distribution_coeff = Double.parseDouble(line);
+				
+			}else if (i == 7) {
+				
+				decayFactor = Double.parseDouble(line);
+				
 			}
 
 			i++;

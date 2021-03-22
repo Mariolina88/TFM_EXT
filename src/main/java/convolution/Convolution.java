@@ -34,6 +34,7 @@ public class Convolution {
 	// INPUT
 	public ArrayList<Double> TTpdf;
 	public ArrayList<Double> inputConcentration;
+	public double lambda;
 
 	// OUPUT
 	public double[] outputConcentrationV;
@@ -51,6 +52,7 @@ public class Convolution {
 		outputConcentrationV = MathArrays.convolve(toArray(TTpdf), toArray(inputConcentration));
 
 		double OUTmass = 0;
+	    double totOUTmass = 0;
 		double INmass = 0;
 
 		double t_i = 0;
@@ -58,28 +60,66 @@ public class Convolution {
 		double m0 = 0;
 		double m1 = 0;
 		double m2 = 0;
+        double j_i = 0;
+        int t_react = 0;
+        double c_react = 0;
 
 		for (int j = 0; j < inputConcentration.size(); j++) {
 
 			INmass = INmass + inputConcentration.get(j);
+			
+            // compute the time of the first injection
+            if (j_i == 0 & INmass > 0) {
+                j_i = j;
+            }
 		}
 
+		
+        for (int j = 0; j < outputConcentrationV.length; j++) {
+
+            // compute the total output mass without the term of reactive decay
+            totOUTmass = totOUTmass + outputConcentrationV[j];
+
+            if (totOUTmass / INmass < 0.98) {
+
+                //store the information on the time relative to the 98%
+                t_react = j;
+
+                // consider the decay and compute the new output concentration vector
+                outputConcentrationV[j] = outputConcentrationV[j] - outputConcentrationV[j] * lambda;
+
+                // compute the new total output mass after the deacy 
+                c_react = c_react + outputConcentrationV[j];
+
+            }
+
+        }
+		
+        // add the remaining 2% that was previously cut to the 98%
+        c_react = c_react + 0.02 * c_react;
+		
+		
+		
 		for (int j = 0; j < outputConcentrationV.length; j++) {
 
-			OUTmass = OUTmass + outputConcentrationV[j];
-			
-			if ((OUTmass / INmass) < 0.98) {
-				outputConcentration.add(outputConcentrationV[j]);
+            // compute the actual output concentration, after the decay
+            double out_c = outputConcentrationV[j] - lambda * outputConcentrationV[j];
 
-				m0 = (INmass - (cdf_i + outputConcentrationV[j]) / 2) * (j - t_i) + m0;
-				m1 = (j + t_i) / 2 * (INmass - (cdf_i + outputConcentrationV[j]) / 2) * (j - t_i) + m1;
+            // compute the actual output mass after the decay
+            OUTmass = OUTmass + out_c;
+			
+			if (j <= t_react) {
+				outputConcentration.add(out_c);
+
+				m0 = (c_react - (cdf_i + out_c) / 2) * (j - t_i) + m0;
+                m1 = (j + t_i) / 2 * (c_react - (cdf_i + out_c) / 2) * (j - t_i) + m1;
 				
 				
 				mass_recovered=OUTmass / INmass;
 			}
 
 			t_i = j;
-			cdf_i = outputConcentrationV[j];
+			cdf_i = out_c;
 			
 		}
 
@@ -93,9 +133,9 @@ public class Convolution {
 
 			OUTmass = OUTmass + outputConcentrationV[j];
 
-			if ((OUTmass / INmass) < 0.98) {
+			if (j <= t_react) {
 
-				m2 = Math.pow((j + t_i) / 2 - mean, 2) * (INmass - (cdf_i + outputConcentrationV[j]) / 2) * (j - t_i) + m2;
+				 m2 = Math.pow((j + t_i) / 2 - mean, 2) * (c_react - (cdf_i + outputConcentrationV[j]) / 2) * (j - t_i) + m2;
 
 			}
 

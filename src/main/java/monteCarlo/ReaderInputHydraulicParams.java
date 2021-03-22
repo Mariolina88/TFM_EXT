@@ -32,6 +32,7 @@ public class ReaderInputHydraulicParams {
 	public double tau_VG=0;
 	public double alpha_VG=0;
 	public double q=0;
+	public double bd=0;
 
 
 	private String line = "";
@@ -67,7 +68,7 @@ public class ReaderInputHydraulicParams {
 				saturated_waterContent_VG= saturated_waterContent_VG>0.75?0.380:saturated_waterContent_VG;
 				
 				alpha_VG=Double.parseDouble(line.split(csvSplitBy)[2]);
-				alpha_VG=alpha_VG<0.01?0.027:alpha_VG;
+				alpha_VG=alpha_VG<0.001?0.027:alpha_VG;
 				alpha_VG=alpha_VG>0.5?0.027:alpha_VG;
 				
 								
@@ -86,6 +87,8 @@ public class ReaderInputHydraulicParams {
 				tau_VG=tau_VG>30?-0.106:tau_VG;
 				
 				q=Double.parseDouble(line.split(csvSplitBy)[6]);
+				
+				bd=Double.parseDouble(line.split(csvSplitBy)[7]);
 			}
 
 

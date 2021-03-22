@@ -42,6 +42,7 @@ public class GTFmodel {
 	public double aboveLayersDepth;
 	public double lambda_1;
 	public double lambda_2;
+	public double R=1;
 	
 	
 	//OUPUT
@@ -63,10 +64,10 @@ public class GTFmodel {
 		double mu_z=Math.log(mean_z)-0.5*Math.pow(sigma_z, 2);
 
 
-		for(int i=0;i<1000;i++){
+		for(int i=0;i<5000;i++){
 
 			//GTF model 
-			double f_tz=1/(sigma_z*(i+0.25)*Math.pow(2*Math.PI, 0.5))*Math.exp(-Math.pow((Math.log(i+0.25)-mu_z),2)/(2*Math.pow(sigma_z, 2)));
+			double f_tz=1/(sigma_z*((i+0.25)*R)*Math.pow(2*Math.PI, 0.5))*Math.exp(-Math.pow((Math.log((i+0.25)*R)-mu_z),2)/(2*Math.pow(sigma_z, 2)));
 
 
 			mean_t=mean_t+(i+0.25)*f_tz;

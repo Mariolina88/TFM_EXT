@@ -27,10 +27,10 @@ import travelTimes.TravelTimesPdfVG;
 import monteCarlo.ReaderInputHydraulicParams;
 import monteCarlo.WriterOUTttpdf;
 
-public class SimulationTFM {
+public class SimulationTFM_NR {
 
 	public void trasferModel (String pathToParams, String pathToClimate, String pathToConcentration,
-			String pathToOutput, double run, boolean doConvol, double distribution_coeff, double decayFactor) throws Exception {
+			String pathToOutput, double run, boolean doConvol) throws Exception {
 
 
 		// if the file already exists, it is delated
@@ -69,7 +69,6 @@ public class SimulationTFM {
 			TravelTimesPdfVG tf_VG=new TravelTimesPdfVG ();
 
 
-            double retardation_factor = 1 + (readerInputsParams.bd / readerInputsParams.saturated_waterContent_VG) * distribution_coeff;
 				
 
 
@@ -97,7 +96,7 @@ public class SimulationTFM {
 
 
 			tf_VG.inputFlux=precipitation;
-			tf_VG.layerThickness=10;			
+			tf_VG.layerThickness=151;			
 			tf_VG.saturated_waterContent_VG=readerInputsParams.saturated_waterContent_VG;
 			tf_VG.residual_waterContent_VG=readerInputsParams.residual_waterContent_VG;
 			tf_VG.n_VG=readerInputsParams.n_VG;
@@ -106,8 +105,6 @@ public class SimulationTFM {
 			tf_VG.saturated_conductivity_VG=readerInputsParams.saturated_conductivity_VG;
 			tf_VG.simualtedConductivity=curve.simualtedConductivity;
 			tf_VG.mean_velocity=curve.mean_velocity;
-            tf_VG.R = retardation_factor;
-            tf_VG.lambda = decayFactor;
 
 			tf_VG.process();
 
@@ -128,7 +125,6 @@ public class SimulationTFM {
 			Convolution convolve=new Convolution();
 			convolve.inputConcentration=readerC.concentration;
 			convolve.TTpdf=tf_VG.pdfArray;
-			convolve.lambda = decayFactor;
 			convolve.convolution();
 			
 			mean.add(convolve.mean);

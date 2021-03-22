@@ -44,7 +44,9 @@ public class MainSimulation {
 				config.pathToConcentration,
 				config.getPathToOuput(),
 				config.run,
-				config.doConvol);
+				config.doConvol,
+				config.distribution_coeff,
+				config.decayFactor);
 						
 
 	}
