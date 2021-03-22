@@ -1,0 +1,1 @@
+Path to optimized curve params:	./resources/input/Montecarlo/Montecarlo_VT_flux.csvPath to meteo:	./resources/input/Montecarlo/meteo_input_costant.csvPath to concentration:	./resources/input/Montecarlo/concentration_in.csvPath to output:	./resources/output/ouput_MC_k.csvNumber of run:	7convolve:	trueK_d:	3.18decay:	0.001161051

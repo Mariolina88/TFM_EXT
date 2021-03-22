@@ -71,14 +71,14 @@ public class ReaderConfiguration {
 				
 			}else if (i == 5) {
 				
-				doConvol=Boolean.parseBoolean(line);
+				doConvol=Boolean.parseBoolean(line.split("\t")[1]);
 			}else if (i == 6) {
 				
-				distribution_coeff = Double.parseDouble(line);
+				distribution_coeff = Double.parseDouble(line.split("\t")[1]);
 				
 			}else if (i == 7) {
 				
-				decayFactor = Double.parseDouble(line);
+				decayFactor = Double.parseDouble(line.split("\t")[1]);
 				
 			}
 
