@@ -17,7 +17,7 @@ public class WaterContentGenerator {
 	public void process() throws Exception { 
 		double x_i=0.1;
 
-		for(int i=0;i<79;i++){
+		for(int i=0;i<99;i++){
 
 			double h=Math.pow(10,x_i+i*0.05);
 

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import convolution.Convolution;
 import curveGenerator.CurveGenerator;
 import curveGenerator.WaterContentGenerator;
+import generalizedTransferFunctionModel.GTFmodel;
 import inputOutputManagement.ReaderInputClimate;
 import inputOutputManagement.ReaderInputConcentration;
 import travelTimes.TravelTimesPdfVG;
@@ -97,7 +98,7 @@ public class SimulationTFM {
 
 
 			tf_VG.inputFlux=precipitation;
-			tf_VG.layerThickness=10;			
+			tf_VG.layerThickness=150;			
 			tf_VG.saturated_waterContent_VG=readerInputsParams.saturated_waterContent_VG;
 			tf_VG.residual_waterContent_VG=readerInputsParams.residual_waterContent_VG;
 			tf_VG.n_VG=readerInputsParams.n_VG;
@@ -119,6 +120,19 @@ public class SimulationTFM {
 			variance.add(tf_VG.variance);
 			
 			}else{
+				
+			// GTF model till the water table depth
+			GTFmodel gtf = new GTFmodel();
+			
+			
+			gtf.mean = tf_VG.mean;
+	        gtf.variance = tf_VG.variance;
+	        gtf.waterTableDepth = 151;
+	        gtf.aboveLayersDepth = 150;
+	        gtf.lambda_1 = 1;
+	        gtf.lambda_2 = 1;
+	        gtf.R = retardation_factor;
+	        gtf.process();
 					
 			ReaderInputConcentration readerC=new ReaderInputConcentration();
 			readerC.pathToData=pathToConcentration;	
@@ -127,8 +141,9 @@ public class SimulationTFM {
 	
 			Convolution convolve=new Convolution();
 			convolve.inputConcentration=readerC.concentration;
-			convolve.TTpdf=tf_VG.pdfArray;
+			convolve.TTpdf=gtf.pdfArray;
 			convolve.lambda = decayFactor;
+			convolve.R=retardation_factor;
 			convolve.convolution();
 			
 			mean.add(convolve.mean);

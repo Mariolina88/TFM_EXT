@@ -130,7 +130,7 @@ public class TravelTimesPdfVG {
 		mean = m1 / m0;
 
 		if (Double.isNaN(mean)) {
-			mean=0;
+			mean=9999;
 		}
 
 		t_i = 0;
@@ -144,6 +144,7 @@ public class TravelTimesPdfVG {
 			double k = simualtedConductivity.get(i);
 
 			double t = k < inputFlux ? computeTime(teta) : 0;
+			t=t*R;
 			double cdf = k < inputFlux ? computeCdf(k) : 0;
 			//double vm = computeVm(t, teta);
 

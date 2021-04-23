@@ -35,6 +35,7 @@ public class Convolution {
 	public ArrayList<Double> TTpdf;
 	public ArrayList<Double> inputConcentration;
 	public double lambda;
+	public double R;
 
 	// OUPUT
 	public double[] outputConcentrationV;
@@ -79,24 +80,25 @@ public class Convolution {
 
             // compute the total output mass without the term of reactive decay
             totOUTmass = totOUTmass + outputConcentrationV[j];
+            
 
-            if (totOUTmass / INmass < 0.98) {
+            if (totOUTmass / INmass < 0.90) {
 
-                //store the information on the time relative to the 98%
-                t_react = j;
+                //store the information on the time relative to the 90%
+				t_react = j;
 
                 // consider the decay and compute the new output concentration vector
                 outputConcentrationV[j] = outputConcentrationV[j] - outputConcentrationV[j] * lambda;
 
-                // compute the new total output mass after the deacy 
+                // compute the new total output mass after the decay 
                 c_react = c_react + outputConcentrationV[j];
 
             }
 
         }
 		
-        // add the remaining 2% that was previously cut to the 98%
-        c_react = c_react + 0.02 * c_react;
+        // add the remaining 10% that was previously cut to the 90%
+		c_react = c_react + 0.10 * c_react;
 		
 		
 		
